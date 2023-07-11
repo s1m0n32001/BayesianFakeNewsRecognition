@@ -1,24 +1,6 @@
-# BayesianFakeNewsRecognition
+# Fake news recognition using a Naive Bayes Classifier
+## Advanced Statistics for Physics Analysis
+### Antonio Feltrin (2097126), Simone Toso (2095484)
 
-# P02 - Naive Bayes classifier for Fake News recognition
-Fake news are defined by the New York Times as ”a made-up story with an intention to deceive”, with the intent to confuse or deceive people. They are everywhere in our daily life, and come especially from social media platforms and applications in the online world. Being able to distinguish fake contents form real news is today one of the most serious challenges facing the news industry. Naive Bayes classifiers $\footnote{C. D. Manning, Chapter 13, Text Classification and Naive Bayes, in Introduction to Information
-Retrieval, Cambridge University Press, 2008.}$ are powerful algorithms that are used for text data analysis and are connected to classification tasks of text in multiple classes. The goal of the project is to implement a Multinomial Naive Bayes classifier in R and test its performances in the classification of social media posts. The suggested data set [(Kumar)](https://www.kaggle.com/datasets/anmolkumar/fake-news-content-detection?select=train.csv) is available on [Kaggle]. Possible suggested labels for classifying the text are the following:
+<hr style="border:1px solid gray">
 
-- True - 5
-- Not-Known - 4
-- Mostly-True - 3
-- Half-True - 2
-- False - 1
-- Barely-True - 0
-
-The Kaggle data set consists of a training set wth 10,240 instances and a test set wth 1,267 instances.
-
-- divide the dataset into a training, validation and testing set;
-- tokenize each word in the data set (convert uppercase to lowercase) and split into tokens;
-- clean the collection of words from stop words;
-- perform token normalization: create equivalence classes so that similar tokens are mapped in the same class
-- build the vocabulary and perform feature selection
-- show the results
-
-Apply the developed methods and technique to a new dataset ([Trump](https://www.kaggle.com/competitions/fake-news/data?select=train.csv)) which is characterized by only two labels: 1 → unreliable and 0 → reliable.
-Draw your conclusions on the results obtained on the two data sets.
