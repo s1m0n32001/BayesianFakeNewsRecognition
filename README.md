@@ -24,6 +24,10 @@ $c_{map} = \mathrm{argmax}_{c} P(d|c)$.
 
 The maximum a posteriori class will be our guess for the classification.
 
+
+
+
+
 ### The learning algorithm
 Our model depends on the following parameters:
 * **Prior**: $p(c)$. 
@@ -33,4 +37,7 @@ The prior can be estimated as $\hat{p}(c) = \frac{N_c}{N}$, i.e. the fraction of
 
 The token probability can instead be estimated as $\hat{p}(t|c) = \frac{T_{ct} + 1}{\sum_{t'} (T_{ct' + 1})}$. The term $T_{ct}$ is the number of times token $t$ appears in a document of class $c$. Notice that, both at the numerator and denominator, we are adding $1$ to $T_{ct}$ and $T_{ct'}$. This is done in order to avoid having $p(t|c) = 0$ for tokens that never appear in documents of class $c$.
 
+![Schema](/schema.png "Secord, 2002")
+
 <hr style="border:1px solid gray">
+
