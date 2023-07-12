@@ -159,14 +159,18 @@ The ranking seems less convincing this time: we notice that words which appear i
 
 We now vary the number of tokens $k$ and train the classifier on those tokens. In the following graph we plot the accuracy obtained when predicting the labels of the validation set.
 
-![scores](/images/scores.png "scores")
+<div style="display: flex; justify-content: center;">
+  <img src="/images/scores.png" alt="Alt Text" width="500px" height="500px" />
+</div>
 
 
 The vocabulary size with optimum accuracy is 708, with a score of 24%. This results could be explained by the fact that our classification has to detect different "shades" of truth, which might be too delicate of a task for a Naive Bayes Classifier. 
 
 Indeed, when looking at the confusion matrix, one notices that the classifier tends to swap classes which are "close" to one another, e.g. FALSE and BARELY TRUE.
 
-![confusion](/images/confusion.png "confusion matrix")
+<div style="display: flex; justify-content: center;">
+  <img src="/images/confusion.png" alt="Alt Text" width="500px" height="500px" />
+</div>
 
 We therefore expect the model to perform better on the second dataset, which labels each record as either *reliable* or *unreliable*.
 
@@ -205,6 +209,6 @@ As seen in the graph, this technique of feature selection tends to prefer larger
 We tried predicting the labels of the test set and submitting them on Kaggle for evaluation. The score on the test set is 89.5%, in accordance to what we had found on the validation set.
 
 <div style="display: flex; justify-content: center;">
-  <img src="/images/kaggle.png" alt="Alt Text" width="800px" height="300px" />
+  <img src="/images/kaggle.png" alt="Alt Text" width="800px" height="120px" />
 </div>
 
