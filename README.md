@@ -159,17 +159,52 @@ The ranking seems less convincing this time: we notice that words which appear i
 
 We now vary the number of tokens $k$ and train the classifier on those tokens. In the following graph we plot the accuracy obtained when predicting the labels of the validation set.
 
-<div style="display: flex; justify-content: center;">
-  <img src="/images/scores.png" alt="Alt Text" width="500px" height="500px" />
-</div>
+![scores](/images/scores.png "scores")
 
-The vocabulary size with optimum accuracy is $708$, with a score of $24\%$. This results could be explained by the fact that our classification has to detect different "shades" of truth, which might be too delicate of a task for a Naive Bayes Classifier. 
+
+The vocabulary size with optimum accuracy is 708, with a score of 24%. This results could be explained by the fact that our classification has to detect different "shades" of truth, which might be too delicate of a task for a Naive Bayes Classifier. 
 
 Indeed, when looking at the confusion matrix, one notices that the classifier tends to swap classes which are "close" to one another, e.g. FALSE and BARELY TRUE.
 
+![confusion](/images/confusion.png "confusion matrix")
+
+We therefore expect the model to perform better on the second dataset, which labels each record as either *reliable* or *unreliable*.
+
+# Second dataset
+We applied the same procedure on the second dataset. 
+
+This time, the dataset structure is the following:
+
+|id|title                                                                            |text|author         |label|
+|--|---------------------------------------------------------------------------------|------------------------------|---------------|-----|
+|0 |House Dem Aide: We Didn’t Even See Comey’s Letter Until Jason Chaffetz Tweeted It|House Dem Aide: We Didn’t Even See Comey’s Letter Until Jason Chaffetz Tweeted It By Darrell Lucus on October 30, 2016 Subscribe Jason Chaffetz ...|Darrell Lucus  |1    |
+|1 |FLYNN: Hillary Clinton, Big Woman on Campus - Breitbart                          |Ever get the feeling your life circles the roundabout rather than heads in a straight line toward the intended destination? [Hillary Clinton remains the big woman on campus in leafy, liberal Wellesley, Massachusetts. Everywhere else votes her most likely to... |Daniel J. Flynn|0    |
+
+As we can see, the `text` attribute is an extremely long document: performing feature selection on such an amount of possible tokens would be computationally demanding. On the other hand, the `title` entries are similar to the documents of the previous dataset. For this reason, we will train the MNB to classify documents starting from the titles.
+
+On this dataset, the classifier performs much better. This can be seen by looking at the scores obtained on the validation set.
 
 <div style="display: flex; justify-content: center;">
-  <img src="/images/confusion.png" alt="Alt Text" width="500px" height="500px" />
+  <img src="/images/scorestrump.png" alt="Alt Text" width="500px" height="500px" />
 </div>
 
+We obtain a maximum validation score of 0.86 with a vocabulary size of 1996 tokens.
+
+## Frequency-based feature selection
+Looking for a way to squeeze a few more percentage points on the test score, we found out that another commonly used option for feature selection is to simpy rank the tokens in from more to least frequent.
+
+```R
+vocab.order <- vocab.bool.df[order(vocab.df$Class_0 + vocab.df$Class_1, decreasing = TRUE), ]
+```
+
+As seen in the graph, this technique of feature selection tends to prefer larger vocabularies, so it can be more computationally demanding. Having said that, it does lead to a slightly better performance, with a maximum validation score of 89.3% (vocabulary size ).
+
+
+
+## Test
+We tried predicting the labels of the test set and submitting them on Kaggle for evaluation. The score on the test set is 89.5%, in accordance to what we had found on the validation set.
+
+<div style="display: flex; justify-content: center;">
+  <img src="/images/kaggle.png" alt="Alt Text" width="800px" height="300px" />
+</div>
 
