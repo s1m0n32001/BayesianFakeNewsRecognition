@@ -57,7 +57,7 @@ $\sum_{e_t\in\{0,1\}} \sum_{e_c\in\{0,...,n}} p(e_t, e_c)\log_2\frac{p(e_t,e_c)}
 We evaluated the MI for all possible tokens. The tokens were then ranked in order of decreasing MI.
 
 Implementation:
-```python3
+```R
 
 #Evaluate MI for each token
 for(i in 1:length(vocab.df$Token)){
@@ -113,7 +113,9 @@ The $\chi^2$ of two variables $A$ and $B$ is used to test their independence, i.
 
 In this context, we can compute the $\chi^2$ for the variables *token t appears in document d* and *document d belongs to class c*. For a fixed token, we can compute the $\chi^2$ for each class $c$ and perform an average across the classes.
 
-```python3
+In particular we have $\chi^2 = \sum_{e_t \in\{0,1\}}\sum_{e_c \in \mathrm{classes}}(N_{e_t e_c}-E_{e_t e_c})^2/E_{e_t e_c}$, where $N_{e_t, e_c}$ is the observed number of documents with token $t$ belonging to class $c$ and $E_{e_t, e_c}$ is the expected number of documents in case of independence.
+
+```R
 for(i in 1:length(vocab.bool.df$Token)){
     Chi <- 0
     N.t <- sum(vocab.bool.df[i, 2:7])
@@ -154,6 +156,13 @@ The resulting rank is the following:
 
 
 The ranking seems less convincing this time: we notice that words which appear in only one class rank high on the list. This can be a source of error. Furthermore, words which intuitively convey less meaning. We therefore choose to use the token ranking provided by the MI.
+
+## Frequency
+Although this method was not explicitly included in our sources, participants in online competitions often rank the tokens in order of decreasing frequency, i.e. from most common to least common. This method can be easily implemented, so it was worth trying it too.
+```R
+total.frequencies <- rowSums(vocab.df[, 2:Nclasses + 2])
+vocab.df.order.frequencies <- vocab.df[order(total.frequencies, decreasing = TRUE), ]
+```
 
 # Training
 
